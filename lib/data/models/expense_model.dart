@@ -4,7 +4,7 @@ import 'package:hive/hive.dart';
 part 'expense_model.g.dart';
 
 @HiveType(typeId: 0)
-class ExpenseModel extends HiveObject{
+class ExpenseModel extends HiveObject implements Expense{
 
   ExpenseModel({required this.category, required this.amount, this.comment, required this.date});
 
@@ -20,5 +20,7 @@ class ExpenseModel extends HiveObject{
   @HiveField(3)
   DateTime date;
 
-  Expense toEntity() => Expense(amount: amount, category: category, date: date, comment: comment);
+  Expense toDomain() => Expense(amount: amount, category: category, date: date, comment: comment);
+
+  ExpenseModel fromDomain() => ExpenseModel(category: category, amount: amount, date: date, comment: comment);
 }
